@@ -45,6 +45,11 @@ func NewCounterDB(uri string) *CounterDB {
 }
 
 func (db *CounterDB) GetAndIncrement(name string) int64 {
+	if name == "" || name[0] == '$' {
+		log.Printf("Invalid counter name provided: %q", name)
+		return 0
+	}
+
 	db.mu.Lock()
 	defer db.mu.Unlock()
 
@@ -66,7 +71,7 @@ func (db *CounterDB) GetAndIncrement(name string) int64 {
 		if err == mongo.ErrNoDocuments {
 			result.Num = 0
 		} else {
-			log.Printf("DB Error fetching %s: %v", name, err)
+			log.Printf("DB Error fetching %q: %v", name, err)
 		}
 	}
 
