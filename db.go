@@ -65,7 +65,10 @@ func (db *CounterDB) GetAndIncrement(name string) int64 {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
-	err := db.collection.FindOne(ctx, bson.M{"name": name}).Decode(&result)
+	filter := struct {
+		Name string `bson:"name"`
+	}{Name: name}
+	err := db.collection.FindOne(ctx, filter).Decode(&result)
 
 	if err != nil {
 		if err == mongo.ErrNoDocuments {
@@ -96,9 +99,12 @@ func (db *CounterDB) Sync() {
 	defer cancel()
 
 	for name, num := range toSync {
+		filter := struct {
+			Name string `bson:"name"`
+		}{Name: name}
 		_, err := db.collection.UpdateOne(
 			ctx,
-			bson.M{"name": name},
+			filter,
 			bson.M{"$set": bson.M{"num": num}},
 			options.Update().SetUpsert(true),
 		)
