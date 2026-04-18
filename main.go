@@ -55,6 +55,11 @@ func main() {
 	r.GET("/:name", func(c *gin.Context) {
 		name := c.Param("name")
 
+		if len(name) > 32 {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Name too long"})
+			return
+		}
+
 		if !nameRegex.MatchString(name) {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid name: only a-z and 0-9 allowed"})
 			return
