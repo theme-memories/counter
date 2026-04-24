@@ -37,7 +37,6 @@ func NewThemeManager(themesDir string) *ThemeManager {
 	}{
 		{"moebooru", 45, 100},
 		{"moebooru-h", 45, 100},
-		{"nixietube", 76, 148},
 		{"number", 64, 64},
 	}
 

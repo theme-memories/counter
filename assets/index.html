@@ -39,11 +39,6 @@
         width: 100%;
         max-width: 800px;
       }
-      @media (min-width: 640px) {
-        .theme-grid {
-          grid-template-columns: repeat(2, 1fr);
-        }
-      }
       .theme-item {
         background: rgba(255, 255, 255, 0.05);
         padding: 1.5rem;
@@ -92,16 +87,12 @@
         <img src="/index" alt="moebooru" />
       </a>
       <a class="theme-item" href="/index?theme=number">
-        <div class="theme-name">number</div>
-        <img src="/index?theme=number" alt="number" />
+        <div class="theme-name">number (scale=0.5, default 1.0)</div>
+        <img src="/index?theme=number&scale=0.5" alt="number" />
       </a>
       <a class="theme-item" href="/index?theme=moebooru-h&padding=10">
         <div class="theme-name">moebooru-h (padding=10, default 8)</div>
         <img src="/index?theme=moebooru-h&padding=10" alt="moebooru-h" />
-      </a>
-      <a class="theme-item" href="/index?theme=nixietube&scale=0.5">
-        <div class="theme-name">nixietube (scale=0.5, default 1.0)</div>
-        <img src="/index?theme=nixietube&scale=0.5" alt="nixietube" />
       </a>
     </div>
     {{ if .CFToken }}
